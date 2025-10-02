@@ -1,0 +1,17 @@
+---
+title: 'Phase 1 Report'
+output: word_document
+---
+
+## Objective
+Analyze relationship between inflation and interest rates using WDI data.
+
+## Steps
+1. Import data (2000–2024).
+2. Merge datasets on country and year.
+3. Clean missing values.
+4. Plot relationship between inflation and interest rate.
+
+## Summary
+Scatter plot suggests general relationship between inflation and interest rate levels.
+
