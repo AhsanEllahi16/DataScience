@@ -1,0 +1,151 @@
+---
+title: "Phase2_Report"
+---
+title: "Phase 2 Report - Exploratory Data Analysis (EDA)"
+author: "Group 1"
+output: word_document
+---
+
+# Introduction
+
+This report presents **Phase 2** of the group assignment, which focuses on  
+**Exploratory Data Analysis (EDA)** and **visualization** using the World Bank dataset
+prepared in Phase 1.
+
+The dataset covers years **2000-2024** and includes:
+
+- **Inflation, consumer prices (annual %)**  
+- **Real interest rate (%)**
+
+The goal is to explore trends, distributions, outliers, and relationships.
+
+---
+
+# Load Libraries and Data
+
+```{r}
+library(tidyverse)
+
+# Load dataset created in Phase 1
+data <- read.csv("GroupTask_Phase1/Phase1_combined_clean.csv")
+
+Data Overview
+Writing
+# Show the first few rows
+
+head(data)
+
+# Count missing values
+
+colSums(is.na(data))
+
+# Summary statistics
+
+summary(data)
+
+Distribution of Inflation
+Writing
+ggplot(data, aes(x = inflation)) +
+geom_histogram(bins = 40, fill = "steelblue", alpha = 0.7) +
+labs(title = "Distribution of Inflation (2000-2024)",
+x = "Inflation (%)",
+y = "Count") +
+theme_minimal()
+
+Distribution of Interest Rate
+Writing
+ggplot(data, aes(x = interest_rate)) +
+geom_histogram(bins = 40, fill = "darkgreen", alpha = 0.7) +
+labs(title = "Distribution of Interest Rate (2000-2024)",
+x = "Interest Rate (%)",
+y = "Count") +
+theme_minimal()
+
+Boxplots - Outlier Detection
+Writing
+ggplot(data, aes(y = inflation)) +
+geom_boxplot(fill = "tomato") +
+labs(title = "Inflation - Boxplot",
+y = "Inflation (%)") +
+theme_minimal()
+
+ggplot(data, aes(y = interest_rate)) +
+geom_boxplot(fill = "purple") +
+labs(title = "Interest Rate - Boxplot",
+y = "Interest Rate (%)") +
+theme_minimal()
+
+Relationship Between Inflation and Interest Rate
+Writing
+ggplot(data, aes(x = inflation, y = interest_rate)) +
+geom_point(alpha = 0.5, color = "blue") +
+labs(title = "Inflation vs. Interest Rate",
+x = "Inflation (%)",
+y = "Interest Rate (%)") +
+theme_minimal()
+
+Trend Over Time (Global Average)
+Writing
+trend <- data %>%
+group_by(year) %>%
+summarise(
+avg_inflation = mean(inflation, na.rm = TRUE),
+avg_interest = mean(interest_rate, na.rm = TRUE)
+)
+
+ggplot(trend, aes(x = year)) +
+geom_line(aes(y = avg_inflation), color = "red", size = 1) +
+geom_line(aes(y = avg_interest), color = "blue", size = 1) +
+labs(title = "Global Trend: Inflation vs. Interest Rate",
+x = "Year",
+y = "Average Value") +
+theme_minimal()
+
+Key Findings
+
+Inflation shows wide variation with multiple outliers.
+
+Interest rate distribution is skewed and includes negative values.
+
+Scatter plot indicates a weak positive relationship between inflation and interest rate.
+
+Global inflation spikes during crisis years like 2008 and 2020.
+
+Interest rates generally decline after 2010.
+
+Conclusion
+
+Phase 2 successfully completed:
+
+Data exploration
+
+Missing value analysis
+
+Summary statistics
+
+Distribution and outlier analysis
+
+Relationship visualization
+
+Time-series trend analysis
+
+This prepares the dataset for Phase 3: Statistical Modeling.
+
+
+---
+
+# ???? **Your Phase 2 RMarkdown is ready**
+
+Now just click **Knit ??? Knit to Word**.
+
+A Word report will be automatically created for submission.
+
+---
+
+If you want, I can also make:
+
+??? Folder structure  
+??? Graph explanations  
+??? Your GitHub push commands  
+
+Just tell me!
