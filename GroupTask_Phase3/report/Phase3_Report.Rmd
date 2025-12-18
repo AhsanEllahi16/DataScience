@@ -1,0 +1,62 @@
+---
+title: "Phase 3 Report"
+output: word_document
+---
+
+## Objective
+Perform linear regression to analyze relationship between inflation and interest rates, and validate the model using diagnostic plots.
+
+## Data
+We use the cleaned dataset from Phase 1 (2000-2024) containing inflation and real interest rates per country.
+
+## Steps
+
+1. Import cleaned data from Phase 1.
+2. Select relevant variables: inflation and interest_rate.
+3. Remove missing values.
+4. Fit linear regression model: inflation ~ interest_rate.
+5. Generate diagnostic plots to validate assumptions.
+
+```{r load-data, message=FALSE}
+library(tidyverse)
+
+# Load dataset
+data <- read_csv("../data/Phase1_cleaned_data.csv")
+
+# Prepare model data
+model_data <- data %>%
+  select(country, year, inflation, interest_rate) %>%
+  drop_na()
+
+# View sample
+head(model_data)
+
+# Fit model
+
+model <- lm(inflation ~ interest_rate, data = model_data)
+
+# Model summary
+
+summary(model)
+
+par(mfrow = c(2, 2))  # 2x2 layout
+plot(model)
+par(mfrow = c(1, 1))  # reset layout
+
+Interpretation of Diagnostic Plots
+
+Residuals vs Fitted:
+Residuals are mostly scattered around zero, showing a reasonable linear relationship.
+
+Normal Q-Q Plot:
+Residuals are close to the line, slightly deviating at extreme values.
+
+Scale-Location Plot:
+Mild heteroskedasticity is visible, which is common in economic data.
+
+Residuals vs Leverage:
+A few high-leverage points exist but do not dominate the model.
+
+Diagnostic Conclusion
+
+Overall, the model assumptions are reasonably satisfied. Minor deviations are expected due to volatility in country-level economic data.
